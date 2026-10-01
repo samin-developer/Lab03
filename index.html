@@ -3,187 +3,663 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Modern Website</title>
+
+    <title>RideMate - Smart Carpooling</title>
 
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            background: #0f172a;
+            background: #07111f;
             color: white;
+            overflow-x: hidden;
         }
 
-        /* Navbar */
+        /* ================= NAVBAR ================= */
+
         nav {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            padding: 20px 8%;
+            height: 75px;
+
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(15, 23, 42, 0.9);
-            position: fixed;
-            top: 0;
+
+            padding: 0 7%;
+
+            background: rgba(7, 17, 31, 0.75);
+            backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+
             z-index: 1000;
-            backdrop-filter: blur(10px);
         }
 
         .logo {
-            font-size: 28px;
-            font-weight: bold;
-            color: #38bdf8;
+            font-size: 27px;
+            font-weight: 800;
+            color: #fff;
         }
 
         .logo span {
-            color: #a855f7;
+            color: #38e8a5;
         }
 
         nav ul {
             display: flex;
-            list-style: none;
             gap: 30px;
+            list-style: none;
         }
 
-        nav ul li a {
-            color: white;
+        nav ul a {
+            color: #cbd5e1;
             text-decoration: none;
-            transition: 0.3s;
+            font-size: 15px;
+            transition: .3s;
         }
 
-        nav ul li a:hover {
-            color: #38bdf8;
+        nav ul a:hover {
+            color: #38e8a5;
         }
 
-        /* Hero */
+        .nav-btn {
+            background: #38e8a5;
+            color: #06131e !important;
+            padding: 11px 20px;
+            border-radius: 25px;
+            font-weight: 700;
+        }
+
+        /* ================= HERO ================= */
+
         .hero {
             min-height: 100vh;
+
             display: flex;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 100px 20px 50px;
+
+            padding: 120px 7% 70px;
+
+            position: relative;
+
             background:
-                radial-gradient(circle at top left, #7c3aed55, transparent 35%),
-                radial-gradient(circle at bottom right, #0ea5e955, transparent 35%),
-                #0f172a;
+                radial-gradient(circle at 15% 20%, rgba(56,232,165,.18), transparent 30%),
+                radial-gradient(circle at 85% 70%, rgba(45,125,255,.18), transparent 35%);
         }
 
         .hero-content {
-            max-width: 800px;
+            width: 55%;
+            z-index: 2;
+        }
+
+        .badge {
+            display: inline-block;
+
+            padding: 8px 15px;
+
+            border: 1px solid rgba(56,232,165,.3);
+            border-radius: 30px;
+
+            color: #38e8a5;
+            background: rgba(56,232,165,.08);
+
+            font-size: 13px;
+            margin-bottom: 22px;
         }
 
         .hero h1 {
-            font-size: 60px;
-            margin-bottom: 20px;
-            line-height: 1.1;
+            font-size: clamp(45px, 6vw, 78px);
+            line-height: 1.05;
+
+            margin-bottom: 25px;
         }
 
         .hero h1 span {
-            background: linear-gradient(90deg, #38bdf8, #a855f7);
-            -webkit-background-clip: text;
-            color: transparent;
+            color: #38e8a5;
         }
 
         .hero p {
-            font-size: 20px;
-            color: #cbd5e1;
+            color: #94a3b8;
+            font-size: 18px;
+            line-height: 1.7;
+            max-width: 600px;
             margin-bottom: 35px;
         }
 
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
         .btn {
-            display: inline-block;
-            padding: 14px 30px;
+            padding: 15px 25px;
             border-radius: 30px;
+
             text-decoration: none;
-            color: white;
-            font-weight: bold;
-            margin: 8px;
-            transition: 0.3s;
+            font-weight: 700;
+
+            transition: .3s;
         }
 
         .primary {
-            background: linear-gradient(90deg, #2563eb, #9333ea);
+            background: #38e8a5;
+            color: #06131e;
         }
 
         .secondary {
-            border: 1px solid #38bdf8;
+            color: white;
+            border: 1px solid #334155;
         }
 
         .btn:hover {
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px #38bdf855;
+            box-shadow: 0 12px 30px rgba(56,232,165,.18);
         }
 
-        /* Cards */
-        .services {
-            padding: 90px 8%;
-            text-align: center;
+        /* ================= CAR ILLUSTRATION ================= */
+
+        .hero-car {
+            position: absolute;
+            right: 5%;
+            bottom: 15%;
+
+            width: 440px;
+            height: 250px;
+
+            animation: float 4s ease-in-out infinite;
         }
 
-        .services h2 {
-            font-size: 40px;
-            margin-bottom: 50px;
+        .car-body {
+            position: absolute;
+
+            width: 390px;
+            height: 110px;
+
+            bottom: 40px;
+            left: 25px;
+
+            background: linear-gradient(135deg,#38e8a5,#159cdb);
+
+            border-radius: 100px 120px 30px 30px;
+            box-shadow: 0 25px 50px rgba(56,232,165,.2);
         }
 
-        .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 25px;
+        .car-top {
+            position: absolute;
+
+            width: 240px;
+            height: 100px;
+
+            left: 105px;
+            bottom: 125px;
+
+            background: linear-gradient(135deg,#1e293b,#334155);
+
+            border-radius: 120px 120px 0 0;
+
+            border: 5px solid #38e8a5;
         }
 
-        .card {
-            padding: 35px 25px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: 0.3s;
+        .window {
+            position: absolute;
+
+            width: 80px;
+            height: 60px;
+
+            background: #07111f;
+
+            bottom: 140px;
+
+            border-radius: 50px 50px 5px 5px;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: #38bdf8;
-            box-shadow: 0 10px 40px #0005;
+        .window.one {
+            left: 130px;
         }
 
-        .icon {
-            font-size: 45px;
-            margin-bottom: 20px;
+        .window.two {
+            left: 230px;
         }
 
-        .card h3 {
-            margin-bottom: 15px;
-            color: #38bdf8;
-        }
+        .wheel {
+            position: absolute;
 
-        .card p {
-            color: #94a3b8;
-            line-height: 1.6;
-        }
+            width: 75px;
+            height: 75px;
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 30px;
             background: #020617;
+
+            border: 12px solid #334155;
+
+            border-radius: 50%;
+
+            bottom: 10px;
+        }
+
+        .wheel.one {
+            left: 70px;
+        }
+
+        .wheel.two {
+            right: 70px;
+        }
+
+        @keyframes float {
+            0%,100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        /* ================= SEARCH ================= */
+
+        .search-section {
+            padding: 50px 7%;
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-box {
+            max-width: 1100px;
+            margin: auto;
+
+            padding: 25px;
+
+            display: grid;
+            grid-template-columns: repeat(3,1fr) auto;
+            gap: 15px;
+
+            background: rgba(255,255,255,.06);
+
+            border: 1px solid rgba(255,255,255,.1);
+
+            border-radius: 20px;
+
+            backdrop-filter: blur(20px);
+
+            box-shadow: 0 25px 70px rgba(0,0,0,.3);
+        }
+
+        .input-box {
+            background: #0d1b2d;
+            border: 1px solid #26364a;
+            border-radius: 12px;
+            padding: 14px 18px;
+        }
+
+        .input-box label {
+            display: block;
+            color: #64748b;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .input-box input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-size: 15px;
+        }
+
+        .search-btn {
+            border: none;
+            padding: 0 25px;
+            border-radius: 12px;
+
+            background: #38e8a5;
+            color: #06131e;
+
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        /* ================= STATS ================= */
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4,1fr);
+
+            max-width: 1100px;
+
+            margin: 80px auto;
+            padding: 0 7%;
+
+            text-align: center;
+        }
+
+        .stat h2 {
+            font-size: 35px;
+            color: #38e8a5;
+        }
+
+        .stat p {
+            color: #64748b;
+            margin-top: 5px;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section {
+            padding: 90px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-title h2 {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .section-title p {
             color: #64748b;
         }
 
-        /* Mobile */
-        @media (max-width: 700px) {
+        /* ================= RIDES ================= */
+
+        .rides {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit,minmax(280px,1fr));
+
+            gap: 25px;
+
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        .ride-card {
+            padding: 25px;
+
+            background: #0d1b2d;
+
+            border: 1px solid #1e3045;
+
+            border-radius: 20px;
+
+            transition: .3s;
+        }
+
+        .ride-card:hover {
+            transform: translateY(-8px);
+            border-color: #38e8a5;
+            box-shadow: 0 20px 50px rgba(0,0,0,.25);
+        }
+
+        .driver {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: linear-gradient(135deg,#38e8a5,#3b82f6);
+
+            font-weight: 800;
+        }
+
+        .driver small {
+            color: #64748b;
+        }
+
+        .route {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .route-line {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #38e8a5;
+            border-radius: 50%;
+        }
+
+        .line {
+            width: 2px;
+            height: 40px;
+            background: #334155;
+        }
+
+        .location p {
+            margin-bottom: 25px;
+            color: #cbd5e1;
+        }
+
+        .ride-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding-top: 15px;
+
+            border-top: 1px solid #1e3045;
+        }
+
+        .price {
+            color: #38e8a5;
+            font-size: 22px;
+            font-weight: 800;
+        }
+
+        .join {
+            padding: 10px 18px;
+
+            border-radius: 20px;
+
+            background: rgba(56,232,165,.1);
+
+            color: #38e8a5;
+
+            text-decoration: none;
+
+            border: 1px solid rgba(56,232,165,.2);
+        }
+
+        /* ================= FEATURES ================= */
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3,1fr);
+            gap: 25px;
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 35px 25px;
+
+            background: rgba(255,255,255,.04);
+
+            border-radius: 20px;
+
+            border: 1px solid rgba(255,255,255,.07);
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .feature h3 {
+            margin-bottom: 12px;
+        }
+
+        .feature p {
+            color: #64748b;
+            line-height: 1.6;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta {
+            margin: 80px 7%;
+            padding: 70px 30px;
+
+            text-align: center;
+
+            border-radius: 30px;
+
+            background:
+                radial-gradient(circle at top left,#38e8a533,transparent 40%),
+                radial-gradient(circle at bottom right,#2563eb44,transparent 40%),
+                #0d1b2d;
+
+            border: 1px solid #1e3045;
+        }
+
+        .cta h2 {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            color: #94a3b8;
+            margin-bottom: 30px;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer {
+            padding: 50px 7% 25px;
+
+            background: #030914;
+
+            color: #64748b;
+
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-size: 25px;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo span {
+            color: #38e8a5;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:900px) {
+
+            .hero-content {
+                width: 100%;
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-car {
+                display: none;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .search-btn {
+                padding: 15px;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2,1fr);
+                gap: 35px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media(max-width:600px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
             nav ul {
                 display: none;
             }
 
-            .hero h1 {
-                font-size: 42px;
+            .hero {
+                padding-left: 5%;
+                padding-right: 5%;
             }
 
-            .hero p {
-                font-size: 17px;
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .stats {
+                padding: 0 5%;
+            }
+
+            .section {
+                padding: 70px 5%;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+
+            .cta {
+                margin: 50px 5%;
+            }
+
+            .cta h2 {
+                font-size: 32px;
             }
         }
     </style>
@@ -191,88 +667,472 @@
 
 <body>
 
+    <!-- NAVBAR -->
+
     <nav>
-        <div class="logo">Lab<span>03</span></div>
+
+        <div class="logo">
+            Ride<span>Mate</span>
+        </div>
 
         <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#services">Services</a></li>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#rides">Find a Ride</a></li>
+            <li><a href="#features">How It Works</a></li>
             <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li>
+                <a href="#join" class="nav-btn">
+                    Offer a Ride
+                </a>
+            </li>
         </ul>
+
     </nav>
 
-    <section class="hero">
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
         <div class="hero-content">
 
+            <div class="badge">
+                🚗 Smart • Social • Sustainable
+            </div>
+
             <h1>
-                Build Something
-                <span>Amazing</span>
+                Your Ride.<br>
+                Your People.<br>
+                <span>Your Journey.</span>
             </h1>
 
             <p>
-                Welcome to my modern and creative website.
-                Explore beautiful design, clean code and amazing ideas.
+                Connect with people going your way.
+                Share rides, split costs and make every
+                journey more meaningful.
             </p>
 
-            <a href="#services" class="btn primary">
-                Explore Now
-            </a>
+            <div class="hero-buttons">
 
-            <a href="#contact" class="btn secondary">
-                Contact Me
-            </a>
+                <a href="#rides" class="btn primary">
+                    🔍 Find a Ride
+                </a>
 
-        </div>
-    </section>
+                <a href="#join" class="btn secondary">
+                    + Offer a Ride
+                </a>
 
-    <section class="services" id="services">
-
-        <h2>✨ What I Do</h2>
-
-        <div class="cards">
-
-            <div class="card">
-                <div class="icon">💻</div>
-                <h3>Web Development</h3>
-                <p>
-                    Modern and responsive websites using
-                    HTML, CSS and JavaScript.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">🎨</div>
-                <h3>Creative Design</h3>
-                <p>
-                    Beautiful user interfaces with modern
-                    colors, layouts and animations.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">⚡</div>
-                <h3>Fast Performance</h3>
-                <p>
-                    Clean and optimized code for a fast
-                    and smooth user experience.
-                </p>
-            </div>
-
-            <div class="card">
-                <div class="icon">🚀</div>
-                <h3>Innovation</h3>
-                <p>
-                    Turning creative ideas into attractive
-                    and functional digital experiences.
-                </p>
             </div>
 
         </div>
+
+
+        <!-- CSS CAR -->
+
+        <div class="hero-car">
+
+            <div class="car-top"></div>
+
+            <div class="window one"></div>
+            <div class="window two"></div>
+
+            <div class="car-body"></div>
+
+            <div class="wheel one"></div>
+            <div class="wheel two"></div>
+
+        </div>
+
     </section>
 
-    <footer>
-        <p>© 2026 Lab03 | Made with ❤️ using HTML & CSS</p>
+
+    <!-- SEARCH -->
+
+    <section class="search-section">
+
+        <div class="search-box">
+
+            <div class="input-box">
+
+                <label>FROM</label>
+
+                <input
+                    type="text"
+                    placeholder="e.g. Karachi"
+                >
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>TO</label>
+
+                <input
+                    type="text"
+                    placeholder="e.g. Lahore"
+                >
+
+            </div>
+
+
+            <div class="input-box">
+
+                <label>DATE</label>
+
+                <input type="date">
+
+            </div>
+
+
+            <button class="search-btn">
+                Search Rides
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <h2>25K+</h2>
+            <p>Happy Riders</p>
+        </div>
+
+        <div class="stat">
+            <h2>8K+</h2>
+            <p>Daily Rides</p>
+        </div>
+
+        <div class="stat">
+            <h2>120K</h2>
+            <p>Trips Completed</p>
+        </div>
+
+        <div class="stat">
+            <h2>4.9★</h2>
+            <p>Average Rating</p>
+        </div>
+
+    </div>
+
+
+    <!-- RIDES -->
+
+    <section class="section" id="rides">
+
+        <div class="section-title">
+
+            <h2>Popular Rides</h2>
+
+            <p>
+                Find a comfortable ride going your way.
+            </p>
+
+        </div>
+
+
+        <div class="rides">
+
+            <!-- Ride 1 -->
+
+            <div class="ride-card">
+
+                <div class="driver">
+
+                    <div class="avatar">
+                        AK
+                    </div>
+
+                    <div>
+                        <strong>Ahmed Khan</strong>
+                        <br>
+                        <small>⭐ 4.9 • 120 rides</small>
+                    </div>
+
+                </div>
+
+
+                <div class="route">
+
+                    <div class="route-line">
+
+                        <div class="dot"></div>
+
+                        <div class="line"></div>
+
+                        <div class="dot"></div>
+
+                    </div>
+
+
+                    <div class="location">
+
+                        <p>
+                            Karachi — 08:00 AM
+                        </p>
+
+                        <p>
+                            Hyderabad — 11:30 AM
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ride-footer">
+
+                    <div class="price">
+                        Rs. 1,200
+                    </div>
+
+                    <a href="#" class="join">
+                        Join Ride
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Ride 2 -->
+
+            <div class="ride-card">
+
+                <div class="driver">
+
+                    <div class="avatar">
+                        SA
+                    </div>
+
+                    <div>
+                        <strong>Sarah Ahmed</strong>
+                        <br>
+                        <small>⭐ 5.0 • 87 rides</small>
+                    </div>
+
+                </div>
+
+
+                <div class="route">
+
+                    <div class="route-line">
+
+                        <div class="dot"></div>
+
+                        <div class="line"></div>
+
+                        <div class="dot"></div>
+
+                    </div>
+
+
+                    <div class="location">
+
+                        <p>
+                            Lahore — 09:00 AM
+                        </p>
+
+                        <p>
+                            Islamabad — 01:00 PM
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ride-footer">
+
+                    <div class="price">
+                        Rs. 1,500
+                    </div>
+
+                    <a href="#" class="join">
+                        Join Ride
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Ride 3 -->
+
+            <div class="ride-card">
+
+                <div class="driver">
+
+                    <div class="avatar">
+                        UM
+                    </div>
+
+                    <div>
+                        <strong>Usman Malik</strong>
+                        <br>
+                        <small>⭐ 4.8 • 64 rides</small>
+                    </div>
+
+                </div>
+
+
+                <div class="route">
+
+                    <div class="route-line">
+
+                        <div class="dot"></div>
+
+                        <div class="line"></div>
+
+                        <div class="dot"></div>
+
+                    </div>
+
+
+                    <div class="location">
+
+                        <p>
+                            Islamabad — 07:30 AM
+                        </p>
+
+                        <p>
+                            Murree — 10:00 AM
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ride-footer">
+
+                    <div class="price">
+                        Rs. 800
+                    </div>
+
+                    <a href="#" class="join">
+                        Join Ride
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section" id="features">
+
+        <div class="section-title">
+
+            <h2>Why RideMate?</h2>
+
+            <p>
+                Everything you need for a better journey.
+            </p>
+
+        </div>
+
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>Safe & Trusted</h3>
+
+                <p>
+                    Verified profiles and ratings help
+                    you ride with people you can trust.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>Save Money</h3>
+
+                <p>
+                    Split travel costs and make your
+                    daily commute more affordable.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🌱
+                </div>
+
+                <h3>Go Green</h3>
+
+                <p>
+                    Fewer cars on the road means less
+                    traffic and a cleaner environment.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CTA -->
+
+    <section class="cta" id="join">
+
+        <h2>Ready to Share the Ride?</h2>
+
+        <p>
+            Join thousands of people making their
+            journeys smarter and more affordable.
+        </p>
+
+        <a href="#" class="btn primary">
+            🚗 Start Your Journey
+        </a>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer id="about">
+
+        <div class="footer-logo">
+            Ride<span>Mate</span>
+        </div>
+
+        <p>
+            Smart carpooling for a better tomorrow.
+        </p>
+
+        <br>
+
+        <p>
+            © 2026 RideMate. All Rights Reserved.
+        </p>
+
     </footer>
 
 </body>
