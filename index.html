@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Modern Website</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #0f172a;
+            color: white;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 23, 42, 0.9);
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #38bdf8;
+        }
+
+        .logo span {
+            color: #a855f7;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #38bdf8;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 50px;
+            background:
+                radial-gradient(circle at top left, #7c3aed55, transparent 35%),
+                radial-gradient(circle at bottom right, #0ea5e955, transparent 35%),
+                #0f172a;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(90deg, #38bdf8, #a855f7);
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: #cbd5e1;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            margin: 8px;
+            transition: 0.3s;
+        }
+
+        .primary {
+            background: linear-gradient(90deg, #2563eb, #9333ea);
+        }
+
+        .secondary {
+            border: 1px solid #38bdf8;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px #38bdf855;
+        }
+
+        /* Cards */
+        .services {
+            padding: 90px 8%;
+            text-align: center;
+        }
+
+        .services h2 {
+            font-size: 40px;
+            margin-bottom: 50px;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            padding: 35px 25px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 40px #0005;
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            color: #38bdf8;
+        }
+
+        .card p {
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #020617;
+            color: #64748b;
+        }
+
+        /* Mobile */
+        @media (max-width: 700px) {
+            nav ul {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            .hero p {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">Lab<span>03</span></div>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+
+            <h1>
+                Build Something
+                <span>Amazing</span>
+            </h1>
+
+            <p>
+                Welcome to my modern and creative website.
+                Explore beautiful design, clean code and amazing ideas.
+            </p>
+
+            <a href="#services" class="btn primary">
+                Explore Now
+            </a>
+
+            <a href="#contact" class="btn secondary">
+                Contact Me
+            </a>
+
+        </div>
+    </section>
+
+    <section class="services" id="services">
+
+        <h2>✨ What I Do</h2>
+
+        <div class="cards">
+
+            <div class="card">
+                <div class="icon">💻</div>
+                <h3>Web Development</h3>
+                <p>
+                    Modern and responsive websites using
+                    HTML, CSS and JavaScript.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🎨</div>
+                <h3>Creative Design</h3>
+                <p>
+                    Beautiful user interfaces with modern
+                    colors, layouts and animations.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">⚡</div>
+                <h3>Fast Performance</h3>
+                <p>
+                    Clean and optimized code for a fast
+                    and smooth user experience.
+                </p>
+            </div>
+
+            <div class="card">
+                <div class="icon">🚀</div>
+                <h3>Innovation</h3>
+                <p>
+                    Turning creative ideas into attractive
+                    and functional digital experiences.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Lab03 | Made with ❤️ using HTML & CSS</p>
+    </footer>
+
+</body>
+</html>
